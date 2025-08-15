@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="article">
+    <header>
+        <h1>{{ article.title }}</h1>
+        <div class="meta">
+            <time datetime="{{ article.date.isoformat() }}"
+                >{{ article.locale_date }}</time
+            >
+            {% if article.category %} •
+            <a href="{{ SITEURL }}/{{ article.category.url }}"
+                >{{ article.category }}</a
+            >{% endif %} {% if article.tags %} • {% for tag in article.tags %}
+            <a class="badge" href="{{ SITEURL }}/{{ tag.url }}">#{{ tag }}</a>{%
+            if not loop.last %} {% endif %} {% endfor %} {% endif %} {% if
+            article.author %} • {{ article.author }}{% endif %}
+        </div>
+    </header>
+
+    {% if article.metadata.image %}
+    <figure class="hero">
+        <img src="{{ SITEURL }}/{{ article.metadata.image }}" alt="" />
+    </figure>
+    {% endif %}
+
+    <div class="content">{{ article.content }}</div>
+
+    <aside>
+        <div>
+            <strong>Category:</strong> {% if article.category %}<a
+                href="{{ SITEURL }}/{{ article.category.url }}"
+                >{{ article.category }}</a
+            >{% else %}—{% endif %}
+        </div>
+        {% if article.modified %}
+        <div>
+            <strong>Updated:</strong>
+            <time datetime="{{ article.modified.isoformat() }}"
+                >{{ article.modified|strftime('%b %d, %Y') }}</time
+            >
+        </div>
+        {% endif %} {% if article.translations %}
+        <div>
+            <strong>Translations:</strong>
+            {% for translation in article.translations %}
+            <div>
+                <a href="{{ SITEURL }}/{{ translation.url }}"
+                    >{{ translation.lang }}</a
+                >
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </aside>
+</article>
+{% endblock %}

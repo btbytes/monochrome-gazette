@@ -1,0 +1,225 @@
+/* Monochrome Gazette — CSS Variables & Base */
+:root {
+    --bg: #ffffff;
+    --fg: #111111;
+    --muted: #666666;
+    --line: #e5e5e5;
+    --accent: #000000;
+    --link: #000000;
+    --maxw: 1200px;
+    --gutter: 1.25rem; /* column gap */
+    --grid-gap: 1rem;
+    --shadow: 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    line-height: 1.6;
+    background: var(--bg);
+    color: var(--fg);
+}
+body {
+    margin: 0;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+a {
+    color: var(--link);
+    text-underline-offset: 0.2em;
+}
+a:hover {
+    text-decoration: none;
+}
+
+/* Layout */
+.header {
+    border-bottom: 2px solid var(--fg);
+    padding: 1.25rem 1rem;
+}
+.header__inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.brand {
+    font-size: 2.25rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.tagline {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+.nav {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.nav a {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--fg);
+    box-shadow: var(--shadow);
+}
+
+.container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 1rem;
+}
+.footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem 1rem;
+    color: var(--muted);
+}
+
+/* Index: Multi-column river */
+.index-columns {
+    column-width: 18rem;
+    column-gap: var(--gutter);
+}
+.card {
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 1rem;
+    margin: 0 0 var(--gutter);
+    box-shadow: var(--shadow);
+}
+.card h2 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.25rem;
+}
+.card .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+.card p {
+    margin: 0.5rem 0 0;
+}
+
+/* Article: two-column layout on wide screens */
+.article {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap);
+}
+.article header {
+    border-bottom: 2px solid var(--fg);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+.article .meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+.article .hero {
+    margin: 1rem 0;
+}
+.article .content {
+    font-size: 1.0625rem;
+}
+.article .content p {
+    margin: 0 0 1rem;
+}
+.article .content p:first-letter {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 1;
+    padding: 0.2rem 0.5rem 0 0;
+    margin: 0.1rem 0.2rem 0 0;
+    color: var(--fg);
+}
+.article aside {
+    border-left: 1px solid var(--line);
+    padding-left: 1rem;
+    color: var(--muted);
+}
+
+@media (min-width: 960px) {
+    .article {
+        grid-template-columns: 2.2fr 0.8fr;
+    }
+    .article .content {
+        column-width: 20rem;
+        column-gap: var(--gutter);
+    }
+}
+
+/* Lists, tables, misc */
+ul,
+ol {
+    padding-left: 1.25rem;
+}
+blockquote {
+    border-left: 3px solid var(--fg);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+}
+code,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+        monospace;
+}
+pre {
+    background: #fafafa;
+    border: 1px solid var(--line);
+    padding: 0.75rem;
+    overflow: auto;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.pagination a,
+.pagination .current {
+    border: 1px solid var(--fg);
+    padding: 0.25rem 0.5rem;
+}
+.pagination .current {
+    background: #000;
+    color: #fff;
+}
+
+/* Monochrome badges */
+.badge {
+    display: inline-block;
+    border: 1px solid var(--fg);
+    padding: 0.1rem 0.4rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Print friendly */
+@media print {
+    .nav,
+    .header,
+    .footer,
+    .pagination {
+        display: none;
+    }
+    .article {
+        grid-template-columns: 1fr;
+    }
+    .article .content {
+        column-width: auto;
+    }
+}
